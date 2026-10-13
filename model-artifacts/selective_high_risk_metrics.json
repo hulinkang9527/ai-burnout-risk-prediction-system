@@ -1,0 +1,494 @@
+{
+  "model_version": "asym-selective-logistic-5d38977b-l200-h515",
+  "created_at_utc": "2026-07-29T16:49:27.939623+00:00",
+  "source_dataset": {
+    "path": "D:\\Desktop\\Desktop\\1毕业论文设计（AI）\\2026年7月毕业论文数据集\\数据与思路\\ai_student_impact_dataset (1).csv",
+    "sha256": "4d911088c4b12d60a450a9acae6b606f4119ebbb48679518e427a4fc00778472",
+    "rows": 50000
+  },
+  "task": {
+    "source_target": "Burnout_Risk_Level",
+    "operational_target": "High_Burnout_Risk",
+    "positive_class": "High",
+    "negative_class": "Low or Medium",
+    "task_type": "binary selective classification",
+    "important_boundary": "This is not the original Low/Medium/High three-class task. Uncertain cases are withheld for manual review."
+  },
+  "split": {
+    "train_rows": 30000,
+    "validation_rows": 10000,
+    "test_rows": 10000,
+    "train_fraction": 0.6,
+    "validation_fraction": 0.2,
+    "test_fraction": 0.2,
+    "test_random_state": 42,
+    "validation_random_state": 43,
+    "stratified": true
+  },
+  "model": {
+    "name": "Logistic Regression + engineered features + cost-sensitive asymmetric selective classification",
+    "family": "LogisticRegression",
+    "parameters": {
+      "C": 1.0,
+      "class_weight": null,
+      "dual": false,
+      "fit_intercept": true,
+      "intercept_scaling": 1,
+      "l1_ratio": 0.0,
+      "max_iter": 2500,
+      "n_jobs": null,
+      "penalty": "deprecated",
+      "random_state": 42,
+      "solver": "lbfgs",
+      "tol": 0.0001,
+      "verbose": 0,
+      "warm_start": false
+    },
+    "raw_input_features": [
+      "Major_Category",
+      "Year_of_Study",
+      "Pre_Semester_GPA",
+      "Weekly_GenAI_Hours",
+      "Primary_Use_Case",
+      "Prompt_Engineering_Skill",
+      "Tool_Diversity",
+      "Paid_Subscription",
+      "Traditional_Study_Hours",
+      "Perceived_AI_Dependency",
+      "Institutional_Policy",
+      "Anxiety_Level_During_Exams"
+    ],
+    "derived_features": [
+      "AI_to_Study_Ratio",
+      "Total_Learning_Hours",
+      "AI_Hours_Share",
+      "AI_minus_Study_Hours",
+      "Dependency_x_AI_Hours",
+      "Anxiety_per_Study_Hour",
+      "Anxiety_x_Dependency",
+      "Anxiety_plus_Dependency"
+    ],
+    "numeric_features": [
+      "Pre_Semester_GPA",
+      "Weekly_GenAI_Hours",
+      "Tool_Diversity",
+      "Traditional_Study_Hours",
+      "Perceived_AI_Dependency",
+      "Anxiety_Level_During_Exams",
+      "AI_to_Study_Ratio",
+      "Total_Learning_Hours",
+      "AI_Hours_Share",
+      "AI_minus_Study_Hours",
+      "Dependency_x_AI_Hours",
+      "Anxiety_per_Study_Hour",
+      "Anxiety_x_Dependency",
+      "Anxiety_plus_Dependency"
+    ],
+    "categorical_features": [
+      "Major_Category",
+      "Year_of_Study",
+      "Primary_Use_Case",
+      "Prompt_Engineering_Skill",
+      "Paid_Subscription",
+      "Institutional_Policy"
+    ]
+  },
+  "selection": {
+    "selected_on": "validation split only",
+    "target_selective_accuracy": 0.85,
+    "minimum_validation_coverage": 0.7,
+    "selection_criterion": "among validation policies with coverage at or above 0.70 and a 95% Wilson lower accuracy bound at or above 0.85, maximize accepted-set balanced accuracy; break exact ties by higher coverage and then higher accuracy",
+    "threshold_grid": {
+      "non_high_min": 0.05,
+      "non_high_max": 0.49,
+      "high_min": 0.51,
+      "high_max": 0.95,
+      "step": 0.005
+    },
+    "non_high_probability_threshold": 0.2,
+    "high_probability_threshold": 0.515,
+    "decision_rule": "Non-high when p(High)<=0.200; High when p(High)>=0.515; otherwise manual review.",
+    "cost_assumption": "Automatically reassuring a true High case is treated as more harmful than referring an uncertain case for review."
+  },
+  "validation": {
+    "all_predictions": {
+      "accuracy": 0.8139,
+      "precision_macro": 0.778083338674529,
+      "recall_macro": 0.6778537283524716,
+      "f1_macro": 0.7029798368317101,
+      "high_recall": 0.40608730476571886,
+      "roc_auc": 0.8049724176542172
+    },
+    "selective_predictions": {
+      "non_high_probability_threshold": 0.2,
+      "high_probability_threshold": 0.515,
+      "coverage": 0.704,
+      "abstention_rate": 0.29600000000000004,
+      "accepted_n": 7040,
+      "accuracy": 0.8676136363636363,
+      "accuracy_wilson_95": [
+        0.8594960298288464,
+        0.8753302762797787
+      ],
+      "balanced_accuracy": 0.7810747883272747,
+      "precision_macro": 0.8206872530385899,
+      "recall_macro": 0.7810747883272747,
+      "f1_macro": 0.7979381641409964,
+      "high_precision": 0.7454682779456193,
+      "high_recall_within_accepted": 0.6238938053097345,
+      "auto_high_recall_all_high": 0.395274329195034,
+      "confusion_matrix": [
+        [
+          5121,
+          337
+        ],
+        [
+          595,
+          987
+        ]
+      ]
+    }
+  },
+  "test": {
+    "all_predictions": {
+      "accuracy": 0.8111,
+      "precision_macro": 0.7696243452405899,
+      "recall_macro": 0.6771902105530768,
+      "f1_macro": 0.7011821811881607,
+      "high_recall": 0.40969162995594716,
+      "roc_auc": 0.7990224281399441
+    },
+    "selective_predictions": {
+      "non_high_probability_threshold": 0.2,
+      "high_probability_threshold": 0.515,
+      "coverage": 0.7124,
+      "abstention_rate": 0.28759999999999997,
+      "accepted_n": 7124,
+      "accuracy": 0.8608927568781584,
+      "accuracy_wilson_95": [
+        0.8526621512923452,
+        0.8687343654100265
+      ],
+      "balanced_accuracy": 0.7735636728989161,
+      "precision_macro": 0.808886246774738,
+      "recall_macro": 0.7735636728989161,
+      "f1_macro": 0.7887578238311241,
+      "high_precision": 0.7247976453274466,
+      "high_recall_within_accepted": 0.614856429463171,
+      "auto_high_recall_all_high": 0.39447336804165,
+      "confusion_matrix": [
+        [
+          5148,
+          374
+        ],
+        [
+          617,
+          985
+        ]
+      ]
+    }
+  },
+  "stability_audit": {
+    "protocol": "Five fixed split seeds; each run refits the model and reselects asymmetric thresholds from validation data by the same 70% coverage, Wilson, and balanced-accuracy rule.",
+    "runs": [
+      {
+        "split_seed": 11,
+        "non_high_probability_threshold": 0.195,
+        "high_probability_threshold": 0.52,
+        "validation_accuracy": 0.8584611016467916,
+        "validation_wilson_lower_95": 0.8501253652285706,
+        "validation_coverage": 0.7044,
+        "validation_balanced_accuracy": 0.7671545044259427,
+        "test_accuracy": 0.8667980850464658,
+        "test_wilson_lower_95": 0.8586968044988261,
+        "test_coverage": 0.7102,
+        "test_balanced_accuracy": 0.7792708723435469,
+        "test_macro_f1": 0.7963026700041719,
+        "test_auto_high_recall_all_high": 0.3960752903484181
+      },
+      {
+        "split_seed": 21,
+        "non_high_probability_threshold": 0.2,
+        "high_probability_threshold": 0.52,
+        "validation_accuracy": 0.8591529277998863,
+        "validation_wilson_lower_95": 0.8508286034392808,
+        "validation_coverage": 0.7036,
+        "validation_balanced_accuracy": 0.7684464761036168,
+        "test_accuracy": 0.867956031723946,
+        "test_wilson_lower_95": 0.8599323189539942,
+        "test_coverage": 0.7187,
+        "test_balanced_accuracy": 0.7827061219182682,
+        "test_macro_f1": 0.7987777492683102,
+        "test_auto_high_recall_all_high": 0.4052863436123348
+      },
+      {
+        "split_seed": 42,
+        "non_high_probability_threshold": 0.2,
+        "high_probability_threshold": 0.515,
+        "validation_accuracy": 0.8676136363636363,
+        "validation_wilson_lower_95": 0.8594960298288464,
+        "validation_coverage": 0.704,
+        "validation_balanced_accuracy": 0.7810747883272747,
+        "test_accuracy": 0.8608927568781584,
+        "test_wilson_lower_95": 0.8526621512923452,
+        "test_coverage": 0.7124,
+        "test_balanced_accuracy": 0.7735636728989161,
+        "test_macro_f1": 0.7887578238311241,
+        "test_auto_high_recall_all_high": 0.39447336804165
+      },
+      {
+        "split_seed": 77,
+        "non_high_probability_threshold": 0.195,
+        "high_probability_threshold": 0.51,
+        "validation_accuracy": 0.8656822376828056,
+        "validation_wilson_lower_95": 0.8575188621581963,
+        "validation_coverage": 0.7043,
+        "validation_balanced_accuracy": 0.7892968556631221,
+        "test_accuracy": 0.8670007158196135,
+        "test_wilson_lower_95": 0.8588352117944928,
+        "test_coverage": 0.6985,
+        "test_balanced_accuracy": 0.7857713374531199,
+        "test_macro_f1": 0.7972991229909066,
+        "test_auto_high_recall_all_high": 0.39247096515818986
+      },
+      {
+        "split_seed": 101,
+        "non_high_probability_threshold": 0.19,
+        "high_probability_threshold": 0.52,
+        "validation_accuracy": 0.8653955606146841,
+        "validation_wilson_lower_95": 0.8572162480119481,
+        "validation_coverage": 0.7028,
+        "validation_balanced_accuracy": 0.7803122427868878,
+        "test_accuracy": 0.8601348443551857,
+        "test_wilson_lower_95": 0.8517941825863896,
+        "test_coverage": 0.6971,
+        "test_balanced_accuracy": 0.7763680396958279,
+        "test_macro_f1": 0.7880162750953335,
+        "test_auto_high_recall_all_high": 0.3864637565078094
+      }
+    ],
+    "mean_test_accuracy": 0.8645564867646737,
+    "sample_std_test_accuracy": 0.0037259147446897867,
+    "minimum_test_accuracy": 0.8601348443551857,
+    "maximum_test_accuracy": 0.867956031723946,
+    "minimum_test_wilson_lower_95": 0.8517941825863896,
+    "mean_test_coverage": 0.70738,
+    "mean_test_balanced_accuracy": 0.7795360088619357,
+    "mean_test_auto_high_recall_all_high": 0.39495394473368045
+  },
+  "comparators": {
+    "binary_majority_baseline_accuracy": 0.7503,
+    "legacy_three_class_random_forest_accuracy": 0.5234,
+    "legacy_three_class_random_forest_macro_f1": 0.5312617424929382
+  },
+  "shap": {
+    "method": "analytic LinearSHAP in log-odds space using the training mean background",
+    "features": [
+      {
+        "source_feature": "Weekly_GenAI_Hours",
+        "mean_abs_shap": 0.7371353775859013,
+        "label": "每周生成式AI使用时长",
+        "normalized_importance": 0.2202701161654983
+      },
+      {
+        "source_feature": "Year_of_Study",
+        "mean_abs_shap": 0.5596565745996384,
+        "label": "年级",
+        "normalized_importance": 0.16723606334506907
+      },
+      {
+        "source_feature": "Traditional_Study_Hours",
+        "mean_abs_shap": 0.45150999370592854,
+        "label": "传统学习时长",
+        "normalized_importance": 0.134919801419921
+      },
+      {
+        "source_feature": "Perceived_AI_Dependency",
+        "mean_abs_shap": 0.3164599623696273,
+        "label": "感知AI依赖",
+        "normalized_importance": 0.09456427515550064
+      },
+      {
+        "source_feature": "Institutional_Policy",
+        "mean_abs_shap": 0.26976368566359565,
+        "label": "学校AI政策",
+        "normalized_importance": 0.08061053666011117
+      },
+      {
+        "source_feature": "Paid_Subscription",
+        "mean_abs_shap": 0.2224177298246709,
+        "label": "是否付费订阅",
+        "normalized_importance": 0.06646266164323045
+      },
+      {
+        "source_feature": "Prompt_Engineering_Skill",
+        "mean_abs_shap": 0.20006678412950218,
+        "label": "提示工程能力",
+        "normalized_importance": 0.05978377258921834
+      },
+      {
+        "source_feature": "Pre_Semester_GPA",
+        "mean_abs_shap": 0.18463132617757141,
+        "label": "学期前GPA",
+        "normalized_importance": 0.05517136322789551
+      },
+      {
+        "source_feature": "Primary_Use_Case",
+        "mean_abs_shap": 0.15488517909962626,
+        "label": "AI主要使用场景",
+        "normalized_importance": 0.046282646892243276
+      },
+      {
+        "source_feature": "Major_Category",
+        "mean_abs_shap": 0.15028741257930664,
+        "label": "专业类别",
+        "normalized_importance": 0.04490874652559777
+      },
+      {
+        "source_feature": "Anxiety_Level_During_Exams",
+        "mean_abs_shap": 0.09804077993258592,
+        "label": "考试焦虑",
+        "normalized_importance": 0.02929645576831666
+      },
+      {
+        "source_feature": "Tool_Diversity",
+        "mean_abs_shap": 0.0016517037854663623,
+        "label": "AI工具多样性",
+        "normalized_importance": 0.0004935606073977523
+      }
+    ],
+    "direct_twenty_feature_values": [
+      {
+        "source_feature": "Year_of_Study",
+        "mean_abs_shap": 0.5596565745996384,
+        "normalized_importance": 0.16723606334506913,
+        "label": "年级"
+      },
+      {
+        "source_feature": "Weekly_GenAI_Hours",
+        "mean_abs_shap": 0.326528206830337,
+        "normalized_importance": 0.09757285871338955,
+        "label": "每周生成式AI使用时长"
+      },
+      {
+        "source_feature": "AI_minus_Study_Hours",
+        "mean_abs_shap": 0.31213009675226855,
+        "normalized_importance": 0.09327042869049978,
+        "label": "AI与传统学习时长差"
+      },
+      {
+        "source_feature": "Institutional_Policy",
+        "mean_abs_shap": 0.26976368566359565,
+        "normalized_importance": 0.08061053666011118,
+        "label": "学校AI政策"
+      },
+      {
+        "source_feature": "Total_Learning_Hours",
+        "mean_abs_shap": 0.24942470262527563,
+        "normalized_importance": 0.07453286043839603,
+        "label": "总学习时长"
+      },
+      {
+        "source_feature": "Paid_Subscription",
+        "mean_abs_shap": 0.2224177298246709,
+        "normalized_importance": 0.06646266164323046,
+        "label": "是否付费订阅"
+      },
+      {
+        "source_feature": "Prompt_Engineering_Skill",
+        "mean_abs_shap": 0.20006678412950218,
+        "normalized_importance": 0.05978377258921836,
+        "label": "提示工程能力"
+      },
+      {
+        "source_feature": "Pre_Semester_GPA",
+        "mean_abs_shap": 0.18463132617757141,
+        "normalized_importance": 0.05517136322789552,
+        "label": "学期前GPA"
+      },
+      {
+        "source_feature": "Perceived_AI_Dependency",
+        "mean_abs_shap": 0.1681196210575198,
+        "normalized_importance": 0.05023735067677442,
+        "label": "感知AI依赖"
+      },
+      {
+        "source_feature": "Dependency_x_AI_Hours",
+        "mean_abs_shap": 0.1622237469245702,
+        "normalized_importance": 0.04847555098617333,
+        "label": "AI时长×依赖程度"
+      },
+      {
+        "source_feature": "Primary_Use_Case",
+        "mean_abs_shap": 0.15488517909962626,
+        "normalized_importance": 0.04628264689224329,
+        "label": "AI主要使用场景"
+      },
+      {
+        "source_feature": "Major_Category",
+        "mean_abs_shap": 0.15028741257930664,
+        "normalized_importance": 0.04490874652559778,
+        "label": "专业类别"
+      },
+      {
+        "source_feature": "Traditional_Study_Hours",
+        "mean_abs_shap": 0.10998168281868231,
+        "normalized_importance": 0.03286462539606578,
+        "label": "传统学习时长"
+      },
+      {
+        "source_feature": "AI_Hours_Share",
+        "mean_abs_shap": 0.09436109372360052,
+        "normalized_importance": 0.028196895316666328,
+        "label": "AI学习时长占比"
+      },
+      {
+        "source_feature": "Anxiety_plus_Dependency",
+        "mean_abs_shap": 0.08359063242857563,
+        "normalized_importance": 0.024978475969624922,
+        "label": "考试焦虑与AI依赖合计"
+      },
+      {
+        "source_feature": "Anxiety_x_Dependency",
+        "mean_abs_shap": 0.050866303271069224,
+        "normalized_importance": 0.01519982200165424,
+        "label": "考试焦虑×AI依赖"
+      },
+      {
+        "source_feature": "Anxiety_per_Study_Hour",
+        "mean_abs_shap": 0.024066027187934175,
+        "normalized_importance": 0.007191388129666254,
+        "label": "单位传统学习时长焦虑"
+      },
+      {
+        "source_feature": "Anxiety_Level_During_Exams",
+        "mean_abs_shap": 0.018779298488796406,
+        "normalized_importance": 0.005611612717843959,
+        "label": "考试焦虑"
+      },
+      {
+        "source_feature": "AI_to_Study_Ratio",
+        "mean_abs_shap": 0.00307470148541354,
+        "normalized_importance": 0.0009187794724821039,
+        "label": "AI与传统学习时长比"
+      },
+      {
+        "source_feature": "Tool_Diversity",
+        "mean_abs_shap": 0.0016517037854663623,
+        "normalized_importance": 0.0004935606073977524,
+        "label": "AI工具多样性"
+      }
+    ],
+    "aggregation_note": "One-hot levels are summed to their source field. Each engineered feature's absolute contribution is divided equally among its declared raw parent fields for the form-facing view.",
+    "caveat": "SHAP explains model association, not causality. Parent allocation is a reporting heuristic, not a unique SHAP identity."
+  },
+  "limitations": [
+    "The 85% target is met only for the automatically accepted High/Non-high subset, not all test rows.",
+    "The operational target is High versus Non-high, not the original three-class label.",
+    "Abstained rows require human review and are excluded from selective accuracy.",
+    "Coverage and all-High capture must be reported with conditional accuracy; they are different denominators.",
+    "Subgroup performance varies, and some major/year point estimates remain below the overall result.",
+    "The public dataset does not document a validated burnout scale or label-generation rule.",
+    "This model is for educational research and must not be used as a medical diagnosis."
+  ]
+}

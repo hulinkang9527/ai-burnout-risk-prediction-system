@@ -1,0 +1,13 @@
+# Runtime (versions align with the serialized model metadata)
+fastapi>=0.116,<1.0
+uvicorn[standard]>=0.35,<1.0
+pydantic>=2.11,<3.0
+numpy==2.4.6
+pandas==3.0.3
+scikit-learn==1.9.0
+joblib>=1.5,<2.0
+shap==0.52.0
+
+# Automated verification
+httpx>=0.28,<1.0
+pytest>=8.4,<10.0

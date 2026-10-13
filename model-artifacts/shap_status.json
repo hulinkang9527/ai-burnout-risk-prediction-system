@@ -1,0 +1,15 @@
+{
+  "status": "success",
+  "method": "SHAP TreeExplainer",
+  "best_model": "Random Forest",
+  "background_rows": 200,
+  "background_role": "Saved for deployment-time explainers. The fitted Random Forest TreeExplainer uses its tree-path-dependent internal background for this global audit.",
+  "explained_rows": 75,
+  "transformed_feature_count": 29,
+  "shap_value_shape_normalized": [
+    75,
+    29,
+    3
+  ],
+  "interpretation_warning": "SHAP explains model behaviour and association; it does not establish causality."
+}

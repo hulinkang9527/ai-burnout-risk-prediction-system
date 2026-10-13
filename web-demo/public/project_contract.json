@@ -1,0 +1,120 @@
+{
+  "contractVersion": "2026-08-10.2",
+  "canonicalTitle": "基于生成式AI使用与感知依赖特征的学业倦怠风险预测系统设计与实现",
+  "canonicalEnglishTitle": "Design and Implementation of an Academic Burnout Risk Prediction System Based on Generative AI Use and Perceived AI Dependency Features",
+  "shortName": "智学预警",
+  "author": "胡林康",
+  "studentId": "23280128",
+  "researchTarget": "Burnout_Risk_Level",
+  "researchTargetStatement": "系统只识别数据集定义的学业倦怠风险；感知AI依赖是输入特征，不是第二个诊断目标。",
+  "data": {
+    "source": "Kaggle - Impact of AI on Students",
+    "sourceUrl": "https://www.kaggle.com/datasets/laveshjadon/ai-impact-on-students",
+    "rows": 50000,
+    "columns": 16,
+    "sha256": "4d911088c4b12d60a450a9acae6b606f4119ebbb48679518e427a4fc00778472",
+    "nature": "公开二手数据；由于抽样、量表施测和标签生成过程不可独立核验，本项目按模拟/合成性质处理。",
+    "predictionInputCount": 12,
+    "excludedFromPrediction": [
+      "Student_ID",
+      "Post_Semester_GPA",
+      "Skill_Retention_Score"
+    ]
+  },
+  "inputContract": {
+    "extraFields": "reject",
+    "unknownCategories": "reject",
+    "stringToNumberCoercion": false,
+    "stringToBooleanCoercion": false,
+    "fields": [
+      { "api": "major_category", "raw": "Major_Category", "type": "string", "enum": ["Arts", "Business", "Humanities", "Medical", "STEM"] },
+      { "api": "year_of_study", "raw": "Year_of_Study", "type": "string", "enum": ["Freshman", "Graduate", "Junior", "Senior", "Sophomore"] },
+      { "api": "pre_semester_gpa", "raw": "Pre_Semester_GPA", "type": "number", "modelSupportedRange": [0, 4] },
+      { "api": "weekly_genai_hours", "raw": "Weekly_GenAI_Hours", "type": "number", "deployedRange": [0, 40], "metadataTechnicalRange": [0, 168] },
+      { "api": "primary_use_case", "raw": "Primary_Use_Case", "type": "string", "enum": ["Copywriting/Drafting", "Debugging/Troubleshooting", "Direct_Answer_Generation", "Ideation", "Summarizing_Reading"] },
+      { "api": "prompt_engineering_skill", "raw": "Prompt_Engineering_Skill", "type": "string", "enum": ["Advanced", "Beginner", "Intermediate"] },
+      { "api": "tool_diversity", "raw": "Tool_Diversity", "type": "integer", "modelSupportedRange": [1, 5] },
+      { "api": "paid_subscription", "raw": "Paid_Subscription", "type": "boolean" },
+      { "api": "traditional_study_hours", "raw": "Traditional_Study_Hours", "type": "number", "deployedRange": [0, 40], "metadataTechnicalRange": [0, 168] },
+      { "api": "perceived_ai_dependency", "raw": "Perceived_AI_Dependency", "type": "integer", "modelSupportedRange": [1, 10], "plausibleCollectionRangeForAgent": [0, 10] },
+      { "api": "institutional_policy", "raw": "Institutional_Policy", "type": "string", "enum": ["Actively_Encouraged", "Allowed_With_Citation", "Strict_Ban"] },
+      { "api": "anxiety_level_during_exams", "raw": "Anxiety_Level_During_Exams", "type": "integer", "modelSupportedRange": [1, 10], "plausibleCollectionRangeForAgent": [0, 10] }
+    ]
+  },
+  "primaryTask": {
+    "type": "Low/Medium/High three-class classification",
+    "model": "Random Forest",
+    "modelVersion": "random-forest-e959d64abc4a",
+    "trainRows": 40000,
+    "testRows": 10000,
+    "accuracy": 0.5234,
+    "macroF1": 0.5313,
+    "rocAucOvrMacro": 0.7063,
+    "highPrecision": 0.5929,
+    "highRecall": 0.5647
+  },
+  "auxiliaryTask": {
+    "type": "High versus Non-high selective binary classification",
+    "model": "Logistic Regression",
+    "modelVersion": "asym-selective-logistic-5d38977b-l200-h515",
+    "trainRows": 30000,
+    "validationRows": 10000,
+    "testRows": 10000,
+    "derivedFeatures": [
+      "AI_to_Study_Ratio",
+      "Total_Learning_Hours",
+      "AI_Hours_Share",
+      "AI_minus_Study_Hours",
+      "Dependency_x_AI_Hours",
+      "Anxiety_per_Study_Hour",
+      "Anxiety_x_Dependency",
+      "Anxiety_plus_Dependency"
+    ],
+    "overallAccuracy": 0.8111,
+    "rocAuc": 0.7990,
+    "overallMacroF1": 0.7012,
+    "nonHighMaximum": 0.200,
+    "highMinimum": 0.515,
+    "thresholdSelection": "validation only",
+    "conditionalAccuracy": 0.8609,
+    "conditionalAccuracyWilson95": [0.8527, 0.8687],
+    "coverage": 0.7124,
+    "reviewRate": 0.2876,
+    "acceptedBalancedAccuracy": 0.7736,
+    "acceptedMacroF1": 0.7888,
+    "highPrecision": 0.7248,
+    "acceptedHighRecall": 0.6149,
+    "allHighAutoCorrectCapture": 0.3945
+  },
+  "canonicalStatuses": {
+    "auto_non_high": "p(High) <= 0.200",
+    "review_low_confidence": "0.200 < p(High) < 0.515",
+    "auto_high": "p(High) >= 0.515",
+    "review_out_of_distribution": "agent-only safety state for plausible but model-unsupported values; no score is shown",
+    "invalid": "missing, extra, wrong-type, unknown-category or implausible input"
+  },
+  "interfaceCapabilities": {
+    "localResearchWeb": ["three-class prediction", "individual TreeSHAP", "major/year subgroup performance audit"],
+    "onlineSite": ["selective High/Non-high prediction", "global LinearSHAP", "descriptive major/year dashboard"],
+    "agent": ["selective High/Non-high prediction", "individual LinearSHAP", "out-of-distribution review state"],
+    "knowledgeBase": ["project facts", "methodology", "metrics", "boundaries", "FAQ"]
+  },
+  "privacy": {
+    "onlineInferenceLocation": "same-origin Edge/API at /api/predict",
+    "networkTransmission": true,
+    "businessDatabaseWriteInCurrentCode": false,
+    "responseCaching": "no-store",
+    "platformLoggingMustBeVerifiedBeforeRealUse": true
+  },
+  "safetyBoundary": "仅用于教育支持、方法验证和毕业设计原型；不构成医学或心理诊断，不得作为处分、标签化或其他不利决定的唯一依据。High与Review必须进入人工支持或复核，Non-high不是无风险证明。",
+  "forbiddenClaims": [
+    "三分类准确率86.09%",
+    "全体学生准确率86.09%",
+    "模型识别了86.09%的High学生",
+    "真实高校部署后保证超过85%",
+    "感知AI依赖是独立诊断目标",
+    "数据代表真实学生人群患病率",
+    "模型已经实现全面公平",
+    "不入库等于没有网络传输"
+  ]
+}

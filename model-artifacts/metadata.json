@@ -1,0 +1,213 @@
+{
+  "artifact_name": "AI dependency and academic burnout early-screening pipeline",
+  "artifact_file": "model.joblib",
+  "model_family": "Random Forest",
+  "target": "Burnout_Risk_Level",
+  "target_classes_model_order": [
+    "High",
+    "Low",
+    "Medium"
+  ],
+  "target_classes_display_order": [
+    "Low",
+    "Medium",
+    "High"
+  ],
+  "positive_safety_focus": "High",
+  "input_feature_order": [
+    "Major_Category",
+    "Year_of_Study",
+    "Pre_Semester_GPA",
+    "Weekly_GenAI_Hours",
+    "Primary_Use_Case",
+    "Prompt_Engineering_Skill",
+    "Tool_Diversity",
+    "Paid_Subscription",
+    "Traditional_Study_Hours",
+    "Perceived_AI_Dependency",
+    "Institutional_Policy",
+    "Anxiety_Level_During_Exams"
+  ],
+  "input_schema": {
+    "Major_Category": {
+      "type": "string",
+      "required": true,
+      "allowed_values": [
+        "Arts",
+        "Business",
+        "Humanities",
+        "Medical",
+        "STEM"
+      ]
+    },
+    "Year_of_Study": {
+      "type": "string",
+      "required": true,
+      "allowed_values": [
+        "Freshman",
+        "Graduate",
+        "Junior",
+        "Senior",
+        "Sophomore"
+      ]
+    },
+    "Pre_Semester_GPA": {
+      "type": "number",
+      "required": true,
+      "minimum": 0.0,
+      "maximum": 4.0,
+      "observed_minimum": 1.183,
+      "observed_maximum": 3.998,
+      "observed_median": 3.21
+    },
+    "Weekly_GenAI_Hours": {
+      "type": "number",
+      "required": true,
+      "minimum": 0.0,
+      "maximum": 168.0,
+      "observed_minimum": 0.0,
+      "observed_maximum": 40.0,
+      "observed_median": 5.8
+    },
+    "Primary_Use_Case": {
+      "type": "string",
+      "required": true,
+      "allowed_values": [
+        "Copywriting/Drafting",
+        "Debugging/Troubleshooting",
+        "Direct_Answer_Generation",
+        "Ideation",
+        "Summarizing_Reading"
+      ]
+    },
+    "Prompt_Engineering_Skill": {
+      "type": "string",
+      "required": true,
+      "allowed_values": [
+        "Advanced",
+        "Beginner",
+        "Intermediate"
+      ]
+    },
+    "Tool_Diversity": {
+      "type": "integer",
+      "required": true,
+      "minimum": 1,
+      "maximum": 5,
+      "observed_minimum": 1.0,
+      "observed_maximum": 5.0,
+      "observed_median": 3.0
+    },
+    "Paid_Subscription": {
+      "type": "boolean",
+      "required": true,
+      "allowed_values": [
+        false,
+        true
+      ]
+    },
+    "Traditional_Study_Hours": {
+      "type": "number",
+      "required": true,
+      "minimum": 0.0,
+      "maximum": 168.0,
+      "observed_minimum": 1.0,
+      "observed_maximum": 35.86,
+      "observed_median": 11.18
+    },
+    "Perceived_AI_Dependency": {
+      "type": "integer",
+      "required": true,
+      "minimum": 1,
+      "maximum": 10,
+      "observed_minimum": 1.0,
+      "observed_maximum": 10.0,
+      "observed_median": 3.0
+    },
+    "Institutional_Policy": {
+      "type": "string",
+      "required": true,
+      "allowed_values": [
+        "Actively_Encouraged",
+        "Allowed_With_Citation",
+        "Strict_Ban"
+      ]
+    },
+    "Anxiety_Level_During_Exams": {
+      "type": "integer",
+      "required": true,
+      "minimum": 1,
+      "maximum": 10,
+      "observed_minimum": 1.0,
+      "observed_maximum": 10.0,
+      "observed_median": 4.0
+    }
+  },
+  "dependency_operationalization": {
+    "primary_measure": "Perceived_AI_Dependency (self-report, 1-10)",
+    "bands": {
+      "Low": "1-3",
+      "Moderate": "4-5",
+      "High": "6-10"
+    },
+    "high_dependency_rule": "Perceived_AI_Dependency >= 6",
+    "warning": "Project-specific analytical bands; they are not a validated clinical diagnosis or cutoff."
+  },
+  "burnout_operationalization": {
+    "target_field": "Burnout_Risk_Level",
+    "levels": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "warning": "The CSV provides labels but no validated questionnaire, item wording, scoring rubric, or diagnostic gold standard; output is a dataset-level risk estimate only."
+  },
+  "leakage_controls": {
+    "excluded_identifier": [
+      "Student_ID"
+    ],
+    "excluded_post_semester_outcomes": [
+      "Post_Semester_GPA",
+      "Skill_Retention_Score"
+    ],
+    "reason": "The web system is an early-screening tool. Post-semester GPA and skill retention would not be available at the prediction time and could leak downstream outcomes.",
+    "engineered_redundant_features_not_used": [
+      "AI_to_Study_Ratio",
+      "Total_Learning_Hours",
+      "High_AI_Usage"
+    ]
+  },
+  "data": {
+    "source": "https://www.kaggle.com/datasets/laveshjadon/ai-impact-on-students/data",
+    "local_file": "ai_student_impact_dataset (1).csv",
+    "sha256": "4d911088c4b12d60a450a9acae6b606f4119ebbb48679518e427a4fc00778472",
+    "rows": 50000,
+    "columns": 16
+  },
+  "evaluation": {
+    "selected_by": "Highest 5-fold stratified CV macro-F1 on the 80% training partition",
+    "best_model_holdout": {
+      "model": "Random Forest",
+      "accuracy": 0.5234,
+      "precision_macro": 0.5319610899652861,
+      "recall_macro": 0.5359414798683542,
+      "f1_macro": 0.5312617424929382,
+      "roc_auc_ovr_macro": 0.7063014436021913,
+      "log_loss": 0.9315639675780383
+    },
+    "metrics_file": "metrics.json",
+    "fairness_file": "fairness.json",
+    "shap_status_file": "shap_status.json"
+  },
+  "software": {
+    "python": "3.13.14",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scikit_learn": "1.9.0",
+    "joblib": "1.5.3",
+    "shap": "0.52.0"
+  },
+  "random_state": 42,
+  "created_at_utc": "2026-07-16T06:26:11.234949+00:00",
+  "intended_use": "Educational demonstration and early-support triage; never use as a clinical diagnosis, disciplinary decision, or sole basis for adverse action."
+}

@@ -1,0 +1,126 @@
+{
+  "modelVersion": "asym-selective-logistic-5d38977b-l200-h515",
+  "modelName": "高风险选择性逻辑回归",
+  "taskLabel": "High vs 非 High（低置信样本人工复核）",
+  "trainedRows": 30000,
+  "validationRows": 10000,
+  "holdoutRows": 10000,
+  "thresholds": {
+    "nonHighProbabilityMaximum": 0.2,
+    "highProbabilityMinimum": 0.515
+  },
+  "metrics": {
+    "overall_accuracy": 0.8111,
+    "overall_macro_f1": 0.7011821811881607,
+    "roc_auc": 0.7990224281399441,
+    "selective_accuracy": 0.8608927568781584,
+    "selective_macro_f1": 0.7887578238311241,
+    "selective_balanced_accuracy": 0.7735636728989161,
+    "selective_coverage": 0.7124,
+    "abstention_rate": 0.28759999999999997,
+    "accepted_n": 7124,
+    "selective_wilson_lower_95": 0.8526621512923452,
+    "selective_wilson_upper_95": 0.8687343654100265,
+    "high_precision": 0.7247976453274466,
+    "high_recall_within_accepted": 0.614856429463171,
+    "auto_high_recall_all_high": 0.39447336804165,
+    "validation_selective_accuracy": 0.8676136363636363,
+    "validation_wilson_lower_95": 0.8594960298288464,
+    "legacy_three_class_accuracy": 0.5234,
+    "legacy_three_class_macro_f1": 0.5312617424929382
+  },
+  "stability": {
+    "protocol": "Five fixed split seeds; each run refits the model and reselects asymmetric thresholds from validation data by the same 70% coverage, Wilson, and balanced-accuracy rule.",
+    "mean_test_accuracy": 0.8645564867646737,
+    "sample_std_test_accuracy": 0.0037259147446897867,
+    "minimum_test_accuracy": 0.8601348443551857,
+    "maximum_test_accuracy": 0.867956031723946,
+    "minimum_test_wilson_lower_95": 0.8517941825863896,
+    "mean_test_coverage": 0.70738,
+    "mean_test_balanced_accuracy": 0.7795360088619357,
+    "mean_test_auto_high_recall_all_high": 0.39495394473368045
+  },
+  "shapFeatures": [
+    {
+      "source_feature": "Weekly_GenAI_Hours",
+      "mean_abs_shap": 0.7371353775859013,
+      "label": "每周生成式AI使用时长",
+      "normalized_importance": 0.2202701161654983
+    },
+    {
+      "source_feature": "Year_of_Study",
+      "mean_abs_shap": 0.5596565745996384,
+      "label": "年级",
+      "normalized_importance": 0.16723606334506907
+    },
+    {
+      "source_feature": "Traditional_Study_Hours",
+      "mean_abs_shap": 0.45150999370592854,
+      "label": "传统学习时长",
+      "normalized_importance": 0.134919801419921
+    },
+    {
+      "source_feature": "Perceived_AI_Dependency",
+      "mean_abs_shap": 0.3164599623696273,
+      "label": "感知AI依赖",
+      "normalized_importance": 0.09456427515550064
+    },
+    {
+      "source_feature": "Institutional_Policy",
+      "mean_abs_shap": 0.26976368566359565,
+      "label": "学校AI政策",
+      "normalized_importance": 0.08061053666011117
+    },
+    {
+      "source_feature": "Paid_Subscription",
+      "mean_abs_shap": 0.2224177298246709,
+      "label": "是否付费订阅",
+      "normalized_importance": 0.06646266164323045
+    },
+    {
+      "source_feature": "Prompt_Engineering_Skill",
+      "mean_abs_shap": 0.20006678412950218,
+      "label": "提示工程能力",
+      "normalized_importance": 0.05978377258921834
+    },
+    {
+      "source_feature": "Pre_Semester_GPA",
+      "mean_abs_shap": 0.18463132617757141,
+      "label": "学期前GPA",
+      "normalized_importance": 0.05517136322789551
+    },
+    {
+      "source_feature": "Primary_Use_Case",
+      "mean_abs_shap": 0.15488517909962626,
+      "label": "AI主要使用场景",
+      "normalized_importance": 0.046282646892243276
+    },
+    {
+      "source_feature": "Major_Category",
+      "mean_abs_shap": 0.15028741257930664,
+      "label": "专业类别",
+      "normalized_importance": 0.04490874652559777
+    },
+    {
+      "source_feature": "Anxiety_Level_During_Exams",
+      "mean_abs_shap": 0.09804077993258592,
+      "label": "考试焦虑",
+      "normalized_importance": 0.02929645576831666
+    },
+    {
+      "source_feature": "Tool_Diversity",
+      "mean_abs_shap": 0.0016517037854663623,
+      "label": "AI工具多样性",
+      "normalized_importance": 0.0004935606073977523
+    }
+  ],
+  "limitations": [
+    "The 85% target is met only for the automatically accepted High/Non-high subset, not all test rows.",
+    "The operational target is High versus Non-high, not the original three-class label.",
+    "Abstained rows require human review and are excluded from selective accuracy.",
+    "Coverage and all-High capture must be reported with conditional accuracy; they are different denominators.",
+    "Subgroup performance varies, and some major/year point estimates remain below the overall result.",
+    "The public dataset does not document a validated burnout scale or label-generation rule.",
+    "This model is for educational research and must not be used as a medical diagnosis."
+  ]
+}

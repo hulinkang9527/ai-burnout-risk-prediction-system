@@ -1,0 +1,16 @@
+# 统一换行符，避免跨平台协作时 diff 抖动
+* text=auto eol=lf
+
+# 二进制资源
+*.joblib binary
+*.npy binary
+*.npz binary
+*.pkl binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff2 binary
+*.zip binary
+*.gz binary

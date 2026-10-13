@@ -1,0 +1,415 @@
+{
+  "dataset": {
+    "rows": 50000,
+    "columns": 16,
+    "missing_values": 0,
+    "duplicate_rows": 0
+  },
+  "burnout_distribution": [
+    {
+      "level": "Low",
+      "count": 16369,
+      "percentage": 32.738
+    },
+    {
+      "level": "Medium",
+      "count": 21144,
+      "percentage": 42.288
+    },
+    {
+      "level": "High",
+      "count": 12487,
+      "percentage": 24.974
+    }
+  ],
+  "dependency_distribution": [
+    {
+      "dependency_level": "Low (1-3)",
+      "count": 26655,
+      "percentage": 53.31
+    },
+    {
+      "dependency_level": "Moderate (4-5)",
+      "count": 16679,
+      "percentage": 33.358
+    },
+    {
+      "dependency_level": "High (6-10)",
+      "count": 6666,
+      "percentage": 13.331999999999999
+    }
+  ],
+  "coupling_row_percent": {
+    "Low (1-3)": {
+      "Low": 0.42104670793472143,
+      "Medium": 0.4350028137310073,
+      "High": 0.14395047833427124
+    },
+    "Moderate (4-5)": {
+      "Low": 0.27375741950956295,
+      "Medium": 0.44960729060495236,
+      "High": 0.27663528988548475
+    },
+    "High (6-10)": {
+      "Low": 0.08700870087008701,
+      "Medium": 0.30753075307530753,
+      "High": 0.6054605460546054
+    }
+  },
+  "key_numeric_means": {
+    "weekly_genai_hours": 8.4277522,
+    "traditional_study_hours": 11.209271000000001,
+    "perceived_ai_dependency": 3.50536,
+    "exam_anxiety": 4.27076,
+    "pre_semester_gpa": 3.14610234,
+    "post_semester_gpa": 3.3492994200000004,
+    "skill_retention": 75.798125
+  },
+  "major_comparison": [
+    {
+      "Major_Category": "Arts",
+      "n": 5933,
+      "mean_dependency": 3.3633912017529073,
+      "high_dependency_rate": 0.10938816787459969,
+      "high_burnout_rate": 0.226866677903253,
+      "joint_high_rate": 0.0618574077195348,
+      "mean_weekly_genai_hours": 7.271702342828249,
+      "mean_traditional_study_hours": 11.352411933254677,
+      "mean_exam_anxiety": 4.174279453901905
+    },
+    {
+      "Major_Category": "Business",
+      "n": 12538,
+      "mean_dependency": 3.489312490030308,
+      "high_dependency_rate": 0.12840963471048014,
+      "high_burnout_rate": 0.24334024565321422,
+      "joint_high_rate": 0.07465305471367044,
+      "mean_weekly_genai_hours": 8.275898069867603,
+      "mean_traditional_study_hours": 11.205091721167651,
+      "mean_exam_anxiety": 4.250917211676503
+    },
+    {
+      "Major_Category": "Humanities",
+      "n": 9994,
+      "mean_dependency": 3.2436461877126277,
+      "high_dependency_rate": 0.0903542125275165,
+      "high_burnout_rate": 0.20742445467280368,
+      "joint_high_rate": 0.045127076245747445,
+      "mean_weekly_genai_hours": 6.770144086451872,
+      "mean_traditional_study_hours": 11.336752051230738,
+      "mean_exam_anxiety": 4.142485491294777
+    },
+    {
+      "Major_Category": "Medical",
+      "n": 6476,
+      "mean_dependency": 3.399629400864731,
+      "high_dependency_rate": 0.11349598517603458,
+      "high_burnout_rate": 0.23162445954292774,
+      "joint_high_rate": 0.06516368128474367,
+      "mean_weekly_genai_hours": 7.54672791846819,
+      "mean_traditional_study_hours": 11.36514515132798,
+      "mean_exam_anxiety": 4.227609635577517
+    },
+    {
+      "Major_Category": "STEM",
+      "n": 15059,
+      "mean_dependency": 3.7938110100272264,
+      "high_dependency_rate": 0.183876751444319,
+      "high_burnout_rate": 0.29995351616973237,
+      "joint_high_rate": 0.12351417756823162,
+      "mean_weekly_genai_hours": 10.488608805365562,
+      "mean_traditional_study_hours": 11.004719436881599,
+      "mean_exam_anxiety": 4.428979347898267
+    }
+  ],
+  "year_comparison": [
+    {
+      "Year_of_Study": "Freshman",
+      "n": 11031,
+      "mean_dependency": 3.4952406853413107,
+      "high_dependency_rate": 0.13199165986764572,
+      "high_burnout_rate": 0.17976611367963014,
+      "joint_high_rate": 0.06862478469767021,
+      "mean_weekly_genai_hours": 8.446962197443568,
+      "mean_traditional_study_hours": 11.19729398966549,
+      "mean_exam_anxiety": 4.279575741093282
+    },
+    {
+      "Year_of_Study": "Graduate",
+      "n": 7430,
+      "mean_dependency": 3.5010767160161507,
+      "high_dependency_rate": 0.13701211305518168,
+      "high_burnout_rate": 0.36716016150740244,
+      "joint_high_rate": 0.10080753701211305,
+      "mean_weekly_genai_hours": 8.406052489905788,
+      "mean_traditional_study_hours": 11.202348586810228,
+      "mean_exam_anxiety": 4.230686406460296
+    },
+    {
+      "Year_of_Study": "Junior",
+      "n": 11045,
+      "mean_dependency": 3.5035762788592124,
+      "high_dependency_rate": 0.13064735174287007,
+      "high_burnout_rate": 0.24336803983703034,
+      "joint_high_rate": 0.07967406066093255,
+      "mean_weekly_genai_hours": 8.376325033952014,
+      "mean_traditional_study_hours": 11.245699411498416,
+      "mean_exam_anxiety": 4.263196016296967
+    },
+    {
+      "Year_of_Study": "Senior",
+      "n": 10634,
+      "mean_dependency": 3.49181869475268,
+      "high_dependency_rate": 0.1353206695504984,
+      "high_burnout_rate": 0.2741207447808915,
+      "joint_high_rate": 0.08595072409253339,
+      "mean_weekly_genai_hours": 8.459250517208952,
+      "mean_traditional_study_hours": 11.209707541846907,
+      "mean_exam_anxiety": 4.272145946962572
+    },
+    {
+      "Year_of_Study": "Sophomore",
+      "n": 9860,
+      "mean_dependency": 3.5365111561866125,
+      "high_dependency_rate": 0.1328600405679513,
+      "high_burnout_rate": 0.22038539553752534,
+      "joint_high_rate": 0.07464503042596349,
+      "mean_weekly_genai_hours": 8.44624949290061,
+      "mean_traditional_study_hours": 11.18660953346856,
+      "mean_exam_anxiety": 4.298073022312373
+    }
+  ],
+  "model_comparison": [
+    {
+      "model": "Random Forest",
+      "accuracy": 0.5234,
+      "precision_macro": 0.5319610899652861,
+      "recall_macro": 0.5359414798683542,
+      "f1_macro": 0.5312617424929382,
+      "roc_auc_ovr_macro": 0.7063014436021913,
+      "log_loss": 0.9315639675780383
+    },
+    {
+      "model": "Histogram Gradient Boosting",
+      "accuracy": 0.5152,
+      "precision_macro": 0.5182401057171527,
+      "recall_macro": 0.5378106768991805,
+      "f1_macro": 0.5203934091052239,
+      "roc_auc_ovr_macro": 0.7084084846471561,
+      "log_loss": 0.9368533120240027
+    },
+    {
+      "model": "Logistic Regression",
+      "accuracy": 0.5115,
+      "precision_macro": 0.5132871065742152,
+      "recall_macro": 0.5383283615133293,
+      "f1_macro": 0.514717323880311,
+      "roc_auc_ovr_macro": 0.7096853737128805,
+      "log_loss": 0.93628344268648
+    }
+  ],
+  "selected_model": "Random Forest",
+  "selected_model_holdout": {
+    "model": "Random Forest",
+    "accuracy": 0.5234,
+    "precision_macro": 0.5319610899652861,
+    "recall_macro": 0.5359414798683542,
+    "f1_macro": 0.5312617424929382,
+    "roc_auc_ovr_macro": 0.7063014436021913,
+    "log_loss": 0.9315639675780383
+  },
+  "confusion_matrix": {
+    "labels": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "matrix": [
+      [
+        2014,
+        1094,
+        166
+      ],
+      [
+        1617,
+        1810,
+        802
+      ],
+      [
+        342,
+        745,
+        1410
+      ]
+    ]
+  },
+  "top_shap_features": [
+    {
+      "original_feature": "Weekly_GenAI_Hours",
+      "mean_abs_shap": 0.08554880483220348,
+      "normalized_importance": 0.32627710318123854
+    },
+    {
+      "original_feature": "Year_of_Study",
+      "mean_abs_shap": 0.05370257347273762,
+      "normalized_importance": 0.20481782463741222
+    },
+    {
+      "original_feature": "Perceived_AI_Dependency",
+      "mean_abs_shap": 0.032065228793678416,
+      "normalized_importance": 0.12229451930001392
+    },
+    {
+      "original_feature": "Pre_Semester_GPA",
+      "mean_abs_shap": 0.020474210907965175,
+      "normalized_importance": 0.07808719523405794
+    },
+    {
+      "original_feature": "Traditional_Study_Hours",
+      "mean_abs_shap": 0.01788964413325802,
+      "normalized_importance": 0.06822983998655965
+    },
+    {
+      "original_feature": "Institutional_Policy",
+      "mean_abs_shap": 0.01292839685805423,
+      "normalized_importance": 0.04930799306778241
+    },
+    {
+      "original_feature": "Major_Category",
+      "mean_abs_shap": 0.009267199674438493,
+      "normalized_importance": 0.03534444543449301
+    },
+    {
+      "original_feature": "Paid_Subscription",
+      "mean_abs_shap": 0.008456838238885205,
+      "normalized_importance": 0.03225378411852584
+    },
+    {
+      "original_feature": "Anxiety_Level_During_Exams",
+      "mean_abs_shap": 0.00840075272087329,
+      "normalized_importance": 0.03203987791161577
+    },
+    {
+      "original_feature": "Primary_Use_Case",
+      "mean_abs_shap": 0.006823307440173136,
+      "normalized_importance": 0.02602361295474968
+    },
+    {
+      "original_feature": "Prompt_Engineering_Skill",
+      "mean_abs_shap": 0.0042291883440172505,
+      "normalized_importance": 0.016129825827495035
+    },
+    {
+      "original_feature": "Tool_Diversity",
+      "mean_abs_shap": 0.002410631489275361,
+      "normalized_importance": 0.009193978346055882
+    }
+  ],
+  "top_permutation_features": [
+    {
+      "feature": "Weekly_GenAI_Hours",
+      "importance_mean_f1_drop": 0.11907831316399217,
+      "importance_std": 0.007768367718422861
+    },
+    {
+      "feature": "Year_of_Study",
+      "importance_mean_f1_drop": 0.01715485064157067,
+      "importance_std": 0.002482928571581584
+    },
+    {
+      "feature": "Pre_Semester_GPA",
+      "importance_mean_f1_drop": 0.00491560617071761,
+      "importance_std": 0.00446408849375309
+    },
+    {
+      "feature": "Perceived_AI_Dependency",
+      "importance_mean_f1_drop": 0.0022615275633496024,
+      "importance_std": 0.005325654914552659
+    },
+    {
+      "feature": "Prompt_Engineering_Skill",
+      "importance_mean_f1_drop": 0.0022314516318133887,
+      "importance_std": 0.0018979469711244048
+    },
+    {
+      "feature": "Institutional_Policy",
+      "importance_mean_f1_drop": 0.0015252829534730117,
+      "importance_std": 0.002223392110600342
+    },
+    {
+      "feature": "Tool_Diversity",
+      "importance_mean_f1_drop": -0.0008985482928915711,
+      "importance_std": 0.0014302563687728386
+    },
+    {
+      "feature": "Primary_Use_Case",
+      "importance_mean_f1_drop": -0.0009689470939056449,
+      "importance_std": 0.0022483843223723137
+    },
+    {
+      "feature": "Paid_Subscription",
+      "importance_mean_f1_drop": -0.002454832352464853,
+      "importance_std": 0.0019398220379116702
+    },
+    {
+      "feature": "Anxiety_Level_During_Exams",
+      "importance_mean_f1_drop": -0.0046681487300374025,
+      "importance_std": 0.002980311516222856
+    },
+    {
+      "feature": "Traditional_Study_Hours",
+      "importance_mean_f1_drop": -0.005093597897435187,
+      "importance_std": 0.0020326420514808693
+    },
+    {
+      "feature": "Major_Category",
+      "importance_mean_f1_drop": -0.005960306750661573,
+      "importance_std": 0.001679434554694957
+    }
+  ],
+  "fairness_gaps": [
+    {
+      "attribute": "Major_Category",
+      "groups": 5,
+      "accuracy_max_minus_min": 0.023379545757928222,
+      "accuracy_maximum_group": "Medical",
+      "accuracy_minimum_group": "Business",
+      "f1_macro_max_minus_min": 0.026948603238281188,
+      "f1_macro_maximum_group": "STEM",
+      "f1_macro_minimum_group": "Humanities",
+      "predicted_high_rate_max_minus_min": 0.12252379644184899,
+      "predicted_high_rate_maximum_group": "STEM",
+      "predicted_high_rate_minimum_group": "Humanities",
+      "high_risk_recall_tpr_max_minus_min": 0.1831547297405745,
+      "high_risk_recall_tpr_maximum_group": "STEM",
+      "high_risk_recall_tpr_minimum_group": "Humanities",
+      "high_risk_false_negative_rate_max_minus_min": 0.18315472974057445,
+      "high_risk_false_negative_rate_maximum_group": "Humanities",
+      "high_risk_false_negative_rate_minimum_group": "STEM",
+      "high_risk_false_positive_rate_max_minus_min": 0.045916064502215775,
+      "high_risk_false_positive_rate_maximum_group": "STEM",
+      "high_risk_false_positive_rate_minimum_group": "Humanities"
+    },
+    {
+      "attribute": "Year_of_Study",
+      "groups": 5,
+      "accuracy_max_minus_min": 0.026421266137946597,
+      "accuracy_maximum_group": "Freshman",
+      "accuracy_minimum_group": "Senior",
+      "f1_macro_max_minus_min": 0.09663837302556844,
+      "f1_macro_maximum_group": "Junior",
+      "f1_macro_minimum_group": "Graduate",
+      "predicted_high_rate_max_minus_min": 0.2135869206935197,
+      "predicted_high_rate_maximum_group": "Graduate",
+      "predicted_high_rate_minimum_group": "Freshman",
+      "high_risk_recall_tpr_max_minus_min": 0.08909809939794588,
+      "high_risk_recall_tpr_maximum_group": "Graduate",
+      "high_risk_recall_tpr_minimum_group": "Freshman",
+      "high_risk_false_negative_rate_max_minus_min": 0.08909809939794588,
+      "high_risk_false_negative_rate_maximum_group": "Freshman",
+      "high_risk_false_negative_rate_minimum_group": "Graduate",
+      "high_risk_false_positive_rate_max_minus_min": 0.16592706105204907,
+      "high_risk_false_positive_rate_maximum_group": "Graduate",
+      "high_risk_false_positive_rate_minimum_group": "Freshman"
+    }
+  ]
+}

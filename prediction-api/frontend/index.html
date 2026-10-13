@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="基于生成式AI使用与感知依赖特征的学业倦怠风险预测系统：面向学生支持场景的原型筛查、模型解释与分组性能审计界面。">
+  <meta name="theme-color" content="#07111f">
+  <title>知衡 · 学业倦怠风险预测原型</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至主要内容</a>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="主导航">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 42 42" role="img">
+            <path d="M21 4 36 12.5v17L21 38 6 29.5v-17L21 4Z" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M13 25c3.5-8 12.5-11 18-6M15 30c4-6 11-7 15-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="14" cy="16" r="2.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <strong>知衡</strong>
+          <span>AI 学业健康分析</span>
+        </div>
+      </div>
+
+      <nav class="nav-list" aria-label="页面模块">
+        <a class="nav-item is-active" href="#overview" data-section="overview">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h6V4H4v9Zm0 7h6v-4H4v4Zm10 0h6v-9h-6v9Zm0-16v4h6V4h-6Z"/></svg>
+          <span>总览仪表盘</span>
+        </a>
+        <a class="nav-item" href="#assessment" data-section="assessment">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 7v5c0 5 3.8 8.7 9 10 5.2-1.3 9-5 9-10V7l-9-4Zm0 4.2a2.8 2.8 0 1 1 0 5.6 2.8 2.8 0 0 1 0-5.6Zm0 11.3c-2.1 0-4-.8-5.4-2.2.2-1.8 3.6-2.8 5.4-2.8s5.2 1 5.4 2.8A7.6 7.6 0 0 1 12 18.5Z"/></svg>
+          <span>风险评估</span>
+        </a>
+        <a class="nav-item" href="#comparison" data-section="comparison">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16v2H2V4h2v16Zm3-2V9h3v9H7Zm5 0V5h3v13h-3Zm5 0v-6h3v6h-3Z"/></svg>
+          <span>群体对比</span>
+        </a>
+        <a class="nav-item" href="#fairness" data-section="fairness">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 5h5l-4 3.5 1.5 5.5L12 13l-5.5 3L8 10.5 4 7h5l3-5Zm-7 15h14v2H5v-2Zm2 4h10v2H7v-2Z"/></svg>
+          <span>分组性能审计</span>
+        </a>
+        <a class="nav-item" href="#about" data-section="about">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 7h2v2h-2V7Zm0 4h2v6h-2v-6Zm1-9a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg>
+          <span>数据与伦理</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="system-state" id="system-state" role="status">
+          <span class="state-dot" aria-hidden="true"></span>
+          <div><strong>正在检查服务</strong><small>等待 API 响应</small></div>
+        </div>
+        <p>毕业设计 · 胡林康<br><span>学号 23280128</span></p>
+      </div>
+    </aside>
+
+    <div class="page">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menu-button" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="打开导航菜单">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
+        </button>
+        <div class="topbar-title">
+          <span class="eyebrow">EDUCATIONAL WELLBEING INTELLIGENCE</span>
+          <h1>学业倦怠风险预测原型</h1>
+        </div>
+        <div class="topbar-actions">
+          <span class="privacy-chip">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 9h-1V7a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v9h14v-9a2 2 0 0 0-2-2Zm-7-2a2 2 0 1 1 4 0v2h-4V7Zm3 8.7V18h-2v-2.3a2 2 0 1 1 2 0Z"/></svg>
+            当前表单 · 不含直接身份字段
+          </span>
+          <button class="icon-button" id="refresh-button" type="button" aria-label="刷新数据" title="刷新数据">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.7 6.3A8 8 0 1 0 20 12h-2a6 6 0 1 1-1.8-4.3L13 11h8V3l-3.3 3.3Z"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="connection-banner is-hidden" id="connection-banner" role="alert">
+        <div>
+          <strong>服务未连接</strong>
+          <span id="connection-message">无法读取模型服务，请启动后端后重试。页面不会生成或伪造预测结果。</span>
+        </div>
+        <button type="button" class="text-button" id="retry-button">重新连接</button>
+      </div>
+
+      <main id="main-content" tabindex="-1">
+        <section class="section hero-section" id="overview" aria-labelledby="overview-title">
+          <div class="hero-copy reveal">
+            <div class="section-kicker"><span></span>辅助识别 · 可解释 · 需复核</div>
+            <h2 id="overview-title">让每一次风险提醒，<br><em>都成为支持的起点。</em></h2>
+            <p>融合学习行为、生成式 AI 使用方式与感知依赖特征，辅助识别数据集定义的学业倦怠风险等级，为个体提供非诊断性的支持线索。感知依赖仅是模型输入，不是临床诊断。</p>
+            <div class="hero-actions">
+              <a class="primary-button" href="#assessment">开始风险评估 <span aria-hidden="true">→</span></a>
+              <a class="secondary-button" href="#about">了解使用边界</a>
+            </div>
+          </div>
+          <div class="hero-visual reveal" aria-label="系统能力概览">
+            <div class="orbit orbit-one" aria-hidden="true"></div>
+            <div class="orbit orbit-two" aria-hidden="true"></div>
+            <div class="insight-core">
+              <svg class="core-rings" viewBox="0 0 250 250" aria-hidden="true">
+                <circle cx="125" cy="125" r="96"/>
+                <circle cx="125" cy="125" r="70"/>
+                <path d="M42 125a83 83 0 0 1 83-83"/>
+              </svg>
+              <div><span>三层联合分析</span><strong>行为 × 心理 × 情境</strong><small>仅用于风险筛查与教育支持</small></div>
+            </div>
+            <div class="floating-note note-a"><i></i><span>模型解释</span><strong>SHAP</strong></div>
+            <div class="floating-note note-b"><i></i><span>分组审计</span><strong>Group Audit</strong></div>
+            <div class="floating-note note-c"><i></i><span>动态探索</span><strong>Dashboard</strong></div>
+          </div>
+        </section>
+
+        <section class="section metrics-section" aria-labelledby="metrics-title">
+          <div class="section-heading reveal">
+            <div><span class="overline">DATA PULSE</span><h2 id="metrics-title">总体数据概览</h2></div>
+            <p id="dashboard-updated">等待服务返回数据</p>
+          </div>
+          <div class="metric-grid" id="metric-grid" aria-live="polite" aria-busy="true">
+            <article class="metric-card skeleton-card"><div class="skeleton line-sm"></div><div class="skeleton line-lg"></div><div class="skeleton line-md"></div></article>
+            <article class="metric-card skeleton-card"><div class="skeleton line-sm"></div><div class="skeleton line-lg"></div><div class="skeleton line-md"></div></article>
+            <article class="metric-card skeleton-card"><div class="skeleton line-sm"></div><div class="skeleton line-lg"></div><div class="skeleton line-md"></div></article>
+            <article class="metric-card skeleton-card"><div class="skeleton line-sm"></div><div class="skeleton line-lg"></div><div class="skeleton line-md"></div></article>
+          </div>
+        </section>
+
+        <section class="section global-shap-section" id="global-explanation" aria-labelledby="global-shap-title">
+          <div class="section-heading reveal">
+            <div><span class="overline">GLOBAL MODEL EXPLANATION</span><h2 id="global-shap-title">模型整体关注什么</h2></div>
+            <p>解释测试样本中的平均模型归因强度</p>
+          </div>
+          <article class="panel global-shap-card reveal">
+            <div class="global-shap-copy">
+              <div>
+                <span class="global-shap-mark" aria-hidden="true">SHAP</span>
+                <div><h3>全局特征重要性</h3><p>将 Low、Medium、High 三类概率的绝对 SHAP 在解释样本与类别维度求均值后归一化，数值越大表示平均归因越强。</p></div>
+              </div>
+              <span class="global-shap-legend"><i aria-hidden="true"></i> 归一化重要性</span>
+            </div>
+            <div class="global-shap-chart" id="global-shap-chart" role="list" aria-live="polite">
+              <div class="chart-empty">等待仪表盘服务返回全局解释数据</div>
+            </div>
+            <p class="global-shap-caveat" id="global-shap-caveat"><strong>解释边界：</strong>全局 SHAP 是跨样本、跨类别的平均绝对模型归因，不保留正负方向且不表示因果；个体评估请以预测结果中的局部序数风险解释为准。</p>
+          </article>
+        </section>
+
+        <section class="section assessment-section" id="assessment" aria-labelledby="assessment-title">
+          <div class="section-heading reveal">
+            <div><span class="overline">INDIVIDUAL SCREENING</span><h2 id="assessment-title">学生风险评估</h2></div>
+            <p>完整填写后提交；预测不会替代心理咨询或临床判断</p>
+          </div>
+
+          <div class="assessment-layout">
+            <form class="assessment-form panel reveal" id="assessment-form" novalidate>
+              <div class="form-progress" aria-label="表单填写进度">
+                <div><span>评估信息</span><strong id="progress-label">0 / 12</strong></div>
+                <div class="progress-track"><span id="progress-bar"></span></div>
+              </div>
+
+              <fieldset>
+                <legend><span>01</span> 学业背景</legend>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="major_category">专业类别</label>
+                    <select id="major_category" name="major_category" required>
+                      <option value="">请选择专业类别</option>
+                      <option value="Humanities">人文社科</option><option value="Medical">医学</option><option value="Business">商科</option><option value="STEM">理工科</option><option value="Arts">艺术类</option>
+                    </select><span class="field-error"></span>
+                  </div>
+                  <div class="field">
+                    <label for="year_of_study">所在年级</label>
+                    <select id="year_of_study" name="year_of_study" required>
+                      <option value="">请选择所在年级</option>
+                      <option value="Freshman">大一</option><option value="Sophomore">大二</option><option value="Junior">大三</option><option value="Senior">大四</option><option value="Graduate">研究生</option>
+                    </select><span class="field-error"></span>
+                  </div>
+                  <div class="field">
+                    <label for="pre_semester_gpa">上学期 GPA <small>0–4.0</small></label>
+                    <input id="pre_semester_gpa" name="pre_semester_gpa" type="number" min="0" max="4" step="0.01" inputmode="decimal" placeholder="例如 3.25" required>
+                    <span class="field-error"></span>
+                  </div>
+                  <div class="field">
+                    <label for="traditional_study_hours">每周传统学习时长 <small>0–40 小时</small></label>
+                    <input id="traditional_study_hours" name="traditional_study_hours" type="number" min="0" max="40" step="0.1" inputmode="decimal" placeholder="例如 12.5" required>
+                    <span class="field-error"></span>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend><span>02</span> AI 使用行为</legend>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="weekly_genai_hours">每周生成式 AI 使用时长 <small>0–40 小时</small></label>
+                    <input id="weekly_genai_hours" name="weekly_genai_hours" type="number" min="0" max="40" step="0.1" inputmode="decimal" placeholder="例如 8.5" required>
+                    <span class="field-error"></span>
+                  </div>
+                  <div class="field">
+                    <label for="primary_use_case">主要使用场景</label>
+                    <select id="primary_use_case" name="primary_use_case" required>
+                      <option value="">请选择使用场景</option>
+                      <option value="Copywriting/Drafting">文案与起草</option><option value="Ideation">创意构思</option><option value="Summarizing_Reading">阅读总结</option><option value="Debugging/Troubleshooting">调试与故障排查</option><option value="Direct_Answer_Generation">直接生成答案</option>
+                    </select><span class="field-error"></span>
+                  </div>
+                  <div class="field">
+                    <label for="prompt_engineering_skill">提示词技能</label>
+                    <select id="prompt_engineering_skill" name="prompt_engineering_skill" required>
+                      <option value="">请选择技能水平</option>
+                      <option value="Beginner">初级</option><option value="Intermediate">中级</option><option value="Advanced">高级</option>
+                    </select><span class="field-error"></span>
+                  </div>
+                  <div class="field">
+                    <label for="tool_diversity">使用的 AI 工具数量 <small>1–5</small></label>
+                    <input id="tool_diversity" name="tool_diversity" type="number" min="1" max="5" step="1" inputmode="numeric" placeholder="例如 3" required>
+                    <span class="field-error"></span>
+                  </div>
+                  <div class="field">
+                    <label for="paid_subscription">是否订阅付费 AI 服务</label>
+                    <select id="paid_subscription" name="paid_subscription" required><option value="">请选择</option><option value="true">是</option><option value="false">否</option></select>
+                    <span class="field-error"></span>
+                  </div>
+                  <div class="field">
+                    <label for="institutional_policy">学校 AI 使用政策</label>
+                    <select id="institutional_policy" name="institutional_policy" required>
+                      <option value="">请选择政策类型</option><option value="Allowed_With_Citation">允许并要求引用</option><option value="Strict_Ban">严格禁止</option><option value="Actively_Encouraged">积极鼓励使用</option>
+                    </select><span class="field-error"></span>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend><span>03</span> 主观感受</legend>
+                <div class="form-grid slider-grid">
+                  <div class="field range-field">
+                    <div class="range-label"><label for="perceived_ai_dependency">自评 AI 依赖程度</label><output for="perceived_ai_dependency" id="dependency-output">5</output></div>
+                    <input id="perceived_ai_dependency" name="perceived_ai_dependency" type="range" min="1" max="10" value="5" step="1" required>
+                    <div class="range-scale"><span>1 · 很低</span><span>10 · 很高</span></div>
+                    <span class="field-error"></span>
+                  </div>
+                  <div class="field range-field">
+                    <div class="range-label"><label for="anxiety_level_during_exams">考试期间焦虑程度</label><output for="anxiety_level_during_exams" id="anxiety-output">5</output></div>
+                    <input id="anxiety_level_during_exams" name="anxiety_level_during_exams" type="range" min="1" max="10" value="5" step="1" required>
+                    <div class="range-scale"><span>1 · 很低</span><span>10 · 很高</span></div>
+                    <span class="field-error"></span>
+                  </div>
+                </div>
+              </fieldset>
+
+              <div class="consent-box">
+                <input id="consent" type="checkbox" required>
+                <label for="consent">我已了解：本系统只提供研究性风险筛查，不构成医学诊断；如持续感到疲惫、焦虑或失去学习动力，应主动联系辅导员或专业心理支持机构。</label>
+              </div>
+              <span class="consent-error" id="consent-error" role="alert"></span>
+
+              <div class="form-actions">
+                <button class="secondary-button button-reset" type="reset">清空重填</button>
+                <button class="primary-button submit-button" id="submit-button" type="submit">
+                  <span class="button-label">生成风险评估</span><span class="button-spinner" aria-hidden="true"></span><span aria-hidden="true">→</span>
+                </button>
+              </div>
+            </form>
+
+            <aside class="result-panel panel reveal" id="result-panel" aria-labelledby="result-title" aria-live="polite">
+              <div class="result-empty" id="result-empty">
+                <div class="empty-illustration" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
+                <span class="overline">PREDICTION RESULT</span>
+                <h3 id="result-title">评估结果将在这里呈现</h3>
+                <p>提交完整信息后，系统将显示模型估计概率、等级、关键影响因素及分层支持建议。</p>
+                <ul><li>估计概率不是真实患病概率</li><li>解释仅展示模型依据</li><li>建议以支持与人工复核为导向</li></ul>
+              </div>
+              <div class="result-loading is-hidden" id="result-loading" role="status"><div class="scan-visual"><span></span></div><strong>模型正在分析…</strong><p>正在计算模型估计概率与贡献因素</p></div>
+              <div class="result-error is-hidden" id="result-error" role="alert"><div class="error-symbol">!</div><strong>暂时无法完成评估</strong><p id="result-error-message">预测服务未连接，请稍后重试。</p></div>
+              <div class="result-content is-hidden" id="result-content">
+                <div class="result-topline"><span class="overline">PREDICTION RESULT</span><span class="model-badge" id="model-version">模型版本 —</span></div>
+                <div class="risk-summary">
+                  <div class="gauge" id="risk-gauge" role="img" aria-label="模型估计的高风险类别概率">
+                    <svg viewBox="0 0 170 100" aria-hidden="true"><path class="gauge-base" d="M20 85a65 65 0 0 1 130 0"/><path class="gauge-value" id="gauge-value" d="M20 85a65 65 0 0 1 130 0"/></svg>
+                    <div><strong id="risk-probability">—</strong><span>高风险模型估计</span></div>
+                  </div>
+                  <div class="risk-copy"><span class="risk-pill" id="risk-level">—风险</span><h3 id="risk-title">等待评估</h3><p id="risk-summary-text">—</p></div>
+                </div>
+                <div class="probability-breakdown" id="probability-breakdown" aria-label="各风险等级的模型估计概率"></div>
+                <div class="explain-block">
+                  <div class="mini-heading"><div><span class="overline">LOCAL EXPLANATION</span><h4>关键影响因素</h4></div><span>SHAP 值</span></div>
+                  <p class="chart-note">正值将预测推向更高风险，负值将预测推向更低风险。</p>
+                  <div class="shap-chart" id="shap-chart"></div>
+                </div>
+                <div class="recommendations">
+                  <div class="mini-heading"><div><span class="overline">SUPPORT PLAN</span><h4>分层支持建议</h4></div></div>
+                  <ol id="recommendation-list"></ol>
+                </div>
+                <p class="result-disclaimer" id="result-disclaimer">本结果仅供教育支持参考，不构成诊断。</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="section comparison-section" id="comparison" aria-labelledby="comparison-title">
+          <div class="section-heading reveal">
+            <div><span class="overline">COHORT COMPARISON</span><h2 id="comparison-title">专业与年级对比</h2></div>
+            <p>观察群体差异，不对群体贴标签或进行惩罚性排序</p>
+          </div>
+          <div class="chart-layout">
+            <article class="panel chart-card reveal">
+              <div class="card-heading"><div><h3>不同专业倦怠风险</h3><p>各专业高风险占比</p></div><div class="legend"><i class="legend-high"></i> 高风险率</div></div>
+              <div class="bar-chart" id="major-chart" aria-live="polite"><div class="chart-empty">等待仪表盘服务返回数据</div></div>
+            </article>
+            <article class="panel chart-card reveal">
+              <div class="card-heading"><div><h3>不同年级 AI 依赖</h3><p>各年级平均自评依赖程度</p></div><div class="legend"><i class="legend-dependency"></i> 平均分</div></div>
+              <div class="line-chart-wrap" id="year-chart-wrap">
+                <svg class="line-chart" id="year-chart" viewBox="0 0 640 280" role="img" aria-label="各年级平均AI依赖程度折线图"></svg>
+                <div class="chart-empty">等待仪表盘服务返回数据</div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section fairness-section" id="fairness" aria-labelledby="fairness-title">
+          <div class="section-heading reveal">
+            <div><span class="overline">RESPONSIBLE AI</span><h2 id="fairness-title">分组性能审计</h2></div>
+            <p>同时关注性能差异与样本充分性</p>
+          </div>
+          <div class="fairness-layout">
+            <article class="panel audit-summary reveal" id="audit-summary">
+              <div class="audit-score is-pending"><strong>—</strong><span>等待审计</span></div>
+              <div><h3>模型分组性能状态</h3><p>连接分组审计接口后，将展示不同学生群体之间的 TPR、FPR 与预测 High 率差异；这些差异用于发现服务质量不一致，不构成全面公平认证。</p></div>
+            </article>
+            <article class="panel audit-table-card reveal">
+              <div class="card-heading"><div><h3>分组性能指标</h3><p>阈值与判定逻辑由后端审计配置提供</p></div></div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th scope="col">分组维度</th><th scope="col">群体</th><th scope="col">样本量</th><th scope="col">TPR</th><th scope="col">FPR</th><th scope="col">预测 High 率</th><th scope="col">状态</th></tr></thead>
+                  <tbody id="fairness-table"><tr><td colspan="7" class="table-empty">等待分组性能审计服务返回数据</td></tr></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section about-section" id="about" aria-labelledby="about-title">
+          <div class="section-heading reveal">
+            <div><span class="overline">DATA & ETHICS</span><h2 id="about-title">数据说明与伦理声明</h2></div>
+            <p>理解数据边界，是负责任使用预测结果的前提</p>
+          </div>
+          <div class="about-grid">
+            <article class="ethics-card reveal">
+              <span class="card-index">01</span><div class="ethics-icon" aria-hidden="true">◎</div><h3>数据来源</h3>
+              <p>研究数据来自 Kaggle 的 “AI Impact on Students” 数据集。系统以去身份化字段训练，不在浏览器持久化学生姓名、学号等直接身份信息。</p>
+              <a href="https://www.kaggle.com/datasets/laveshjadon/ai-impact-on-students/data" target="_blank" rel="noopener noreferrer">查看公开数据集 <span aria-hidden="true">↗</span></a>
+            </article>
+            <article class="ethics-card reveal">
+              <span class="card-index">02</span><div class="ethics-icon" aria-hidden="true">◇</div><h3>非诊断原则</h3>
+              <p>预测结果反映统计关联而非因果关系，不属于医学或心理诊断。系统不得作为处分、淘汰、奖惩或限制学生机会的唯一依据。</p>
+            </article>
+            <article class="ethics-card reveal">
+              <span class="card-index">03</span><div class="ethics-icon" aria-hidden="true">△</div><h3>人工复核与干预</h3>
+              <p>任何高风险提示都应由受过训练的教师或心理支持人员结合实际情境复核，优先提供自愿、保密、可退出的支持方案。</p>
+            </article>
+            <article class="ethics-card reveal">
+              <span class="card-index">04</span><div class="ethics-icon" aria-hidden="true">▣</div><h3>分组表现与持续监测</h3>
+              <p>定期比较专业、年级等群体的误报与漏报差异，记录模型版本、数据漂移和阈值变更；发现显著差异时暂停自动使用。</p>
+            </article>
+          </div>
+          <div class="boundary-note reveal">
+            <div class="boundary-symbol" aria-hidden="true">i</div>
+            <div><strong>紧急支持提示</strong><p>如你或身边同学出现持续绝望、明显功能受损或自伤念头，请停止使用本系统，并立即联系学校心理中心、当地医疗机构或紧急援助服务。</p></div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div><strong>知衡</strong><span>学业倦怠风险预测原型</span></div>
+        <p>本科毕业设计 · 胡林康 · 23280128</p>
+        <p>以数据辅助关怀，以解释守护信任</p>
+      </footer>
+    </div>
+  </div>
+  <div class="scrim" id="scrim" hidden></div>
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <script src="app.js?v=20260722" defer></script>
+</body>
+</html>
